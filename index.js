@@ -1,7 +1,6 @@
 const express = require('express');
 require('dotenv').config();
 const routers = require('./router/authentication');
-const mailRouter = require('./router/nodeMailer');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
