@@ -3,7 +3,7 @@ require('dotenv').config();
 const routers = require('./router/authentication');
 const mailRouter = require('./router/nodeMailer');
 const mongoose = require('mongoose');
-
+const cors = require('cors');
 
 const url = "mongodb+srv://GagikDB:Gagik123@cluster0.zebbtoj.mongodb.net/";
 
@@ -23,6 +23,14 @@ const router5 = routers.authenticationRoutes.checkEmailCode;
 
     const app = express();
   
+    app.use(cors(
+      {
+          origin: ["https://clientmern.vercel.app/"],
+          methods: ["POST","GET"],
+          credentials:true
+      }
+    ))
+
   
     app.use(express.json());
   
