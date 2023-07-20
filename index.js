@@ -25,7 +25,7 @@ const router5 = routers.authenticationRoutes.checkEmailCode;
   
     app.use(cors(
       {
-          origin: ["https://clientmern.vercel.app/"],
+          origin: ["https://clientmern.vercel.app"],
           methods: ["POST","GET"],
           credentials:true
       }
