@@ -123,7 +123,7 @@ emailConfirmationRouter.get('',async (req,res) =>{
     })
     const changedUser = new User(...changedUserData);
     changedUser.save();
-    res.redirect('http://localhost:3000/login');
+    res.redirect('https://clientmern.vercel.app/login');
          
     }
      
