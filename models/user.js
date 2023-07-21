@@ -24,7 +24,8 @@ const userSchema = new Schema({
         required:false
     },
     forgotPasswordCode:{
-        type:Number
+        type:String,
+    
     }
 })
 

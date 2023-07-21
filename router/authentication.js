@@ -78,7 +78,6 @@ registerRouter.post("/", async (req, res) => {
 });
 
 
-
 const loginRouter = express.Router();
 
 loginRouter.post("/", async (req, res) => {
@@ -163,13 +162,25 @@ User.find({email:userEmail}).then((user) =>{
 const checkEmailCode = express.Router();
 
 checkEmailCode.post('/',async(req,res) =>{
+
+  const regEmailCode = /^[0-9]+\.?[0-9]*$/;
+  
+  let testedRegCode = regEmailCode.test(req.body.code);
+
+  if(req.body.code == "" || req.body.password == "" || !testedRegCode ) {
+    res.status(401).json({message:'incorrect email code !'});
+    return
+  }
   const userEmailResetCode = req.body.code;
+  const resetUserCount = await User.find( {forgotPasswordCode:userEmailResetCode}).count();
+  const resetUser = await User.find( {forgotPasswordCode:userEmailResetCode});
 
-  const resetUser = await User.find( {forgotPasswordCode:userEmailResetCode})
+  if(resetUserCount != 1) {
+     res.status(401).json({message:'wrong email code !'});
+     return; 
+  } 
 
-  if(resetUser == []){
-      res.status(401).json({message:'wrong email code !'});
-    }else{
+  
      const hashedPassword = await bcrypt.hash(req.body.password,10)
 
      const list = resetUser.map((item) =>{
@@ -178,7 +189,7 @@ checkEmailCode.post('/',async(req,res) =>{
       const changedPasswordUser = new User(...resetUser)
       await changedPasswordUser.save()
       res.status(201).json({message:'you have successfully changed your password !'});
-    }
+   
 })
 
 const authenticationRoutes = {
