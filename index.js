@@ -12,8 +12,7 @@ const router3 = routers.authenticationRoutes.emailConfirmationRouter;
 const router4 = routers.authenticationRoutes.resetPassword;
 const router5 = routers.authenticationRoutes.checkEmailCode;
 
-
-    
+console.log(12121212)
 
   mongoose.connect(url)
   .then(() =>{
